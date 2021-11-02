@@ -22,9 +22,8 @@ setTimeout(() => {
 }, 2000);
 
 // 3a
-const counter = setInterval(() => {
     let time = 1
-    setInterval(() => {})
+    let counter = setInterval(() => {
     console.log(time);
     time++;
  }, 1000);
@@ -37,18 +36,24 @@ const counter = setInterval(() => {
 
 // BONUS
 // 4
-const d = new Date();
-let minutes = d.getMinutes();
-const countdown = setInterval(() => {
-    if (minutes >= 0) {
-        const div3 = document.querySelector(`#countdown`);
-        const p4 = document.createElement(`p`);
-        p4.innerText = minutes;  
-        div3.append(p4);;
-    } else {
-        clearInterval(countdown);
-        // p4.innerText = `Hi`;  
-        // div3.append(p4);
+const countdown = document.querySelector(`#countdown`);
+const p4 = document.createElement('p');
+p4.innerHTML = `2:00`;
+countdown.append(p4);
+
+const startTime = 2;
+let currentTime = startTime * 60;
+function updateCountdown() {
+    const minutes = Math.floor(currentTime / 60);
+    let seconds = currentTime % 60;
+    seconds = seconds < 10 ? `0` + seconds : seconds;
+    countdown.innerHTML = `${minutes} : ${seconds}`;
+    currentTime--;
+}
+
+setInterval(() => {
+    updateCountdown();
+    if (currentTime <= 0){
+        countdown.innerHTML = `TIME IS UP`;
     }
-    minutes--;
 }, 1000);
